@@ -1,4 +1,5 @@
 import * as bcrypt from 'bcrypt';
+import { Exclude } from 'class-transformer';
 import {
     BeforeInsert,
     Column,
@@ -21,7 +22,7 @@ export class User {
     lastName: string;
 
     @Column()
-    // @Exclude()
+    @Exclude()
     password: string;
 
     @Column({ default: 'FH Hagenberg' })
