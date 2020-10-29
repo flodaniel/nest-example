@@ -1,0 +1,8 @@
+# Ignore artifacts:
+dist
+node_modules
+uploads
+test
+logs
+class
+assets
