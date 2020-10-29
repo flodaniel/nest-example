@@ -1,4 +1,4 @@
-import { BeforeInsert, Column, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { User } from '../users/user.entity';
 
 @Entity()
@@ -14,9 +14,4 @@ export class Language {
 
     @ManyToMany((type) => User, (user) => user.languages, { eager: false, cascade: false })
     isKnownBy: User[];
-
-    @BeforeInsert()
-    checkDifficulty(): void {
-        this.difficulty = this.name.length * 2;
-    }
 }
