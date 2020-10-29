@@ -13,7 +13,6 @@ export class User {
     lastName: string;
 
     @Column()
-    // @Exclude()
     password: string;
 
     @Column({ default: 'FH Hagenberg' })
@@ -25,9 +24,4 @@ export class User {
     })
     @JoinTable()
     languages: Language[];
-
-    // @BeforeInsert()
-    // hashPassword(): void {
-    //     this.password = bcrypt.hashSync(this.password, 10);
-    // }
 }
