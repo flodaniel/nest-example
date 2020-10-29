@@ -1,12 +1,4 @@
-import * as bcrypt from 'bcrypt';
-import {
-    BeforeInsert,
-    Column,
-    Entity,
-    JoinTable,
-    ManyToMany,
-    PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Language } from '../languages/language.entity';
 
 @Entity()
@@ -21,6 +13,7 @@ export class User {
     lastName: string;
 
     @Column()
+    // @Exclude()
     password: string;
 
     @Column({ default: 'FH Hagenberg' })
@@ -33,9 +26,8 @@ export class User {
     @JoinTable()
     languages: Language[];
 
-    @BeforeInsert()
-    hashPassword(): void {
-        console.log(this.password);
-        this.password = bcrypt.hashSync(this.password, 10);
-    }
+    // @BeforeInsert()
+    // hashPassword(): void {
+    //     this.password = bcrypt.hashSync(this.password, 10);
+    // }
 }
