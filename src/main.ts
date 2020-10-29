@@ -6,7 +6,11 @@ import { AppModule } from './app.module';
 async function bootstrap() {
     const app = await NestFactory.create(AppModule);
     setupSwagger(app);
-    app.useGlobalPipes(new ValidationPipe({ transform: true }));
+    app.useGlobalPipes(
+        new ValidationPipe({
+            transform: true,
+        }),
+    );
     await app.listen(3000);
 
     console.log(`Application is running on: ${await app.getUrl()}`);
