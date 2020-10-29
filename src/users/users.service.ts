@@ -1,26 +1,29 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { LanguagesService } from '../languages/languages.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './user.entity';
+import { UsersRepository } from './users.repository';
 
 @Injectable()
 export class UsersService {
     constructor(
         @InjectRepository(User)
-        private readonly usersRepository: Repository<User>,
+        private readonly usersRepository: UsersRepository,
+        private readonly languagesService: LanguagesService,
     ) {}
 
-    create(createUserDto: CreateUserDto): Promise<User> {
+    async create(createUserDto: CreateUserDto): Promise<User> {
         const user = new User();
         user.firstName = createUserDto.firstName;
         user.lastName = createUserDto.lastName;
-
+        console.log(createUserDto.languages);
+        user.languages = await this.languagesService.findByNames(createUserDto.languages);
         return this.usersRepository.save(user);
     }
 
     async findAll(): Promise<User[]> {
-        return this.usersRepository.find();
+        return await this.usersRepository.find();
     }
 
     findOne(id: string): Promise<User> {

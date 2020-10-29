@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Language } from '../languages/language.entity';
 
 @Entity()
 export class User {
@@ -15,5 +16,12 @@ export class User {
     isActive: boolean;
 
     @Column({ default: 'FH Hagenberg' })
-    fh: string;
+    fh?: string;
+
+    @ManyToMany((type) => Language, (language) => language.isKnownBy, {
+        eager: true,
+        cascade: false,
+    })
+    @JoinTable()
+    languages: Language[];
 }
