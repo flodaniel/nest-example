@@ -1,4 +1,5 @@
-import { Module } from '@nestjs/common';
+import { ClassSerializerInterceptor, Module } from '@nestjs/common';
+import { APP_INTERCEPTOR } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { LanguagesModule } from './languages/languages.module';
 import { UsersModule } from './users/users.module';
@@ -15,10 +16,10 @@ import { UsersModule } from './users/users.module';
             autoLoadEntities: true,
             synchronize: true,
             logging: true,
-            dropSchema: true,
         }),
         UsersModule,
         LanguagesModule,
     ],
+    providers: [{ provide: APP_INTERCEPTOR, useClass: ClassSerializerInterceptor }],
 })
 export class AppModule {}

@@ -1,11 +1,4 @@
-import {
-    BeforeInsert,
-    Column,
-    Entity,
-    InsertEvent,
-    ManyToMany,
-    PrimaryGeneratedColumn,
-} from 'typeorm';
+import { BeforeInsert, Column, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { User } from '../users/user.entity';
 
 @Entity()
@@ -23,7 +16,7 @@ export class Language {
     isKnownBy: User[];
 
     @BeforeInsert()
-    checkDifficulty(event: InsertEvent<Language>): void {
-        console.log('inserting language: ', event);
+    checkDifficulty(): void {
+        this.difficulty = this.name.length * 2;
     }
 }
